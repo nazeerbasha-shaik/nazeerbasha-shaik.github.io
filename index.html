@@ -74,6 +74,12 @@ p { margin: 0; }
 .today .when { font: 0.8rem var(--font-mono); color: var(--muted); }
 .today .note.empty { color: var(--muted); font-size: 1.1rem; }
 
+.earlier { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.earlier li { display: grid; grid-template-columns: 11.5em minmax(0, 1fr); gap: 4px 16px; padding: 12px 4px; border-bottom: 1px solid var(--line); }
+.earlier .when { font: 0.8rem var(--font-mono); color: var(--muted); padding-top: 3px; }
+.earlier .txt { overflow-wrap: anywhere; }
+@media (max-width: 640px) { .earlier li { grid-template-columns: 1fr; } }
+
 /* about */
 .about { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 28px; align-items: start; }
 .about .text { display: flex; flex-direction: column; gap: 14px; max-width: 62ch; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -141,6 +147,7 @@ footer { color: var(--muted); font-size: 0.88rem; border-top: 1px solid var(--li
         <p class="note" id="moodText"></p>
         <p class="when" id="moodWhen"></p>
       </div>
+      <ol class="earlier" id="earlier" hidden></ol>
     </div>
   </section>
 
@@ -190,13 +197,25 @@ footer { color: var(--muted); font-size: 0.88rem; border-top: 1px solid var(--li
     var u = webUrl(c.linkedin), li = $("linkedin");
     if (u) { li.href = u; li.hidden = false; }
 
-    var mood = c.today || {};
-    if (mood.text) {
-      $("moodText").textContent = mood.text;
-      $("moodWhen").textContent = mood.date ? "Written " + mood.date : "";
+    // "today" is a list of notes, newest first. A single note also works.
+    var notes = Array.isArray(c.today) ? c.today : (c.today ? [c.today] : []);
+    notes = notes.filter(function (n) { return n && n.text; });
+    if (notes.length) {
+      $("moodText").textContent = notes[0].text;
+      $("moodWhen").textContent = notes[0].date ? "Written " + notes[0].date : "";
     } else {
       $("moodText").textContent = "Nothing posted yet.";
       $("moodText").className = "note empty";
+    }
+    if (notes.length > 1) {
+      var ol = $("earlier");
+      notes.slice(1).forEach(function (n) {
+        var item = el("li");
+        item.appendChild(el("span", "when", n.date || ""));
+        item.appendChild(el("span", "txt", n.text));
+        ol.appendChild(item);
+      });
+      ol.hidden = false;
     }
 
     $("aboutText").textContent = Array.isArray(c.about) ? c.about.join("\n\n") : (c.about || "");
