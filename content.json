@@ -1,0 +1,72 @@
+{
+  "name": "Niaz Mohammad Azad Shaik",
+  "tagline": "QA and infrastructure engineer. I test networks, and I write about the failures that pass every check.",
+  "linkedin": "",
+  "today": {
+    "text": "",
+    "date": ""
+  },
+  "about": [
+    "I'm a QA and infrastructure engineer at A10 Networks. Before that I worked at F5 Networks and Brocade Communications. Most of my career has gone into testing networking gear: load balancers, routers and switches, with DNS, sFlow and packet capture as my home ground. I hold an MS in Electrical Engineering.",
+    "Lately I have been carrying the same tester's habits into GPU and AI infrastructure. I measure what a GPU is really doing under load, check whether a retrieval system finds the right passage, and look for results that seem fine and are still wrong.",
+    "I write up what I find, including the parts that did not work."
+  ],
+  "photos": [],
+  "writing": [
+    {
+      "where": "StickyMinds",
+      "articles": [
+        {
+          "title": "When Your DNS Tests Lie: Two Silent Failures Testing 49 Record Types",
+          "link": "https://www.stickyminds.com/article/when-your-dns-tests-lie-two-silent-failures-testing-49-record-types",
+          "about": "An old dig quietly turned an unknown record type into two A queries, and the tests still passed."
+        },
+        {
+          "title": "Did Every Collector Get Its Packets? A Checklist Approach to Verifying sFlow Export",
+          "link": "https://www.stickyminds.com/article/did-every-collector-get-its-packets-checklist-approach-verifying-sflow-export",
+          "about": "Capture the traffic, cross each expected collector off a list, and what is left is the failure report."
+        },
+        {
+          "title": "Two Models, Two Checks, Opposite Rankings: Why Structural Validation Is Not Enough for Model Selection",
+          "link": "https://www.stickyminds.com/article/two-models-two-checks-opposite-rankings-why-structural-validation-not-enough-model",
+          "about": "One model wrote perfect JSON with empty fields. The other wrote messy JSON with every answer right."
+        }
+      ]
+    },
+    {
+      "where": "Hugging Face",
+      "articles": [
+        {
+          "title": "GPU Utilization Says 100%. But What Is the GPU Actually Doing?",
+          "link": "https://huggingface.co/blog/nazeerbashashaik/gpu-utilization-under-load",
+          "about": "A T4 pinned at its 70 W power cap, with the clock well below boost the whole time."
+        },
+        {
+          "title": "GPU Under Load, Part 2",
+          "link": "https://huggingface.co/blog/nazeerbashashaik/gpu-workload-comparison",
+          "about": "Two workloads with the same power and utilization, and a twofold difference in clock speed."
+        },
+        {
+          "title": "GPU Metrics and Cloud Limits",
+          "link": "https://huggingface.co/blog/nazeerbashashaik/gpu-metrics-cloud-limits",
+          "about": "What happened when I tried DCGM on Colab, and why it needs a real GPU node."
+        },
+        {
+          "title": "RAG Retrieval Evaluation",
+          "link": "https://huggingface.co/blog/nazeerbashashaik/rag-retrieval-evaluation",
+          "about": "Every obvious fix was ambiguous until measured, and the best method looked worst at first."
+        },
+        {
+          "title": "RAG Generation Faithfulness",
+          "link": "https://huggingface.co/blog/nazeerbashashaik/rag-generation-faithfulness",
+          "about": "Whether a model sticks to its context depends on the passage it is given, not the question."
+        },
+        {
+          "title": "CUDA Silent Failure",
+          "link": "https://huggingface.co/blog/nazeerbashashaik/cuda-silent-failure",
+          "about": "A wrong launch size left 744 elements unwritten, with no crash and no error to catch."
+        }
+      ]
+    }
+  ]
+}

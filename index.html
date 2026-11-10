@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Niaz Shaik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one reading column with a narrow left rail of mono field labels,
+   like the field-name column of a packet capture. Rail stacks above on phones. */
+:root {
+  --bg: #f1f4f3;
+  --surface: #ffffff;
+  --ink: #14211f;
+  --muted: #586a66;
+  --line: #d3dbd9;
+  --accent: #0f6e63;
+  --signal: #b0500f;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1615; --surface: #16211f; --ink: #e5eeec; --muted: #94a7a3;
+    --line: #2a3936; --accent: #5ecab9; --signal: #f0a264;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1615; --surface: #16211f; --ink: #e5eeec; --muted: #94a7a3;
+  --line: #2a3936; --accent: #5ecab9; --signal: #f0a264;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+}
+.wrap { max-width: 880px; margin: 0 auto; padding: 40px 20px 72px; display: flex; flex-direction: column; gap: 56px; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+/* header */
+.top { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; justify-content: space-between; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
+.top h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.02em; }
+.top .tag { color: var(--muted); max-width: 46ch; margin-top: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  font: 500 0.95rem var(--font-body); padding: 9px 16px; border-radius: 6px; cursor: pointer;
+  border: 1px solid var(--ink); background: var(--ink); color: var(--bg); text-decoration: none; display: inline-block;
+}
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.small { padding: 5px 10px; font-size: 0.85rem; }
+.btn[disabled] { opacity: 0.55; cursor: default; }
+
+/* section = rail + body */
+.row { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 12px 28px; }
+.rail { font: 500 0.78rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 6px; }
+.body { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+@media (max-width: 640px) { .row { grid-template-columns: 1fr; } .rail { padding-top: 0; } }
+
+/* today */
+.today { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--signal); border-radius: 6px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+.today .note { font-family: var(--font-display); font-size: 1.45rem; line-height: 1.3; font-weight: 500; white-space: pre-wrap; overflow-wrap: anywhere; }
+.today .when { font: 0.8rem var(--font-mono); color: var(--muted); }
+.today .note.empty { color: var(--muted); font-size: 1.1rem; }
+
+/* about */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 28px; align-items: start; }
+.about .text { display: flex; flex-direction: column; gap: 14px; max-width: 62ch; white-space: pre-wrap; overflow-wrap: anywhere; }
+.portrait { aspect-ratio: 4 / 5; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); overflow: hidden; display: grid; place-items: center; }
+.portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.portrait span { font: 700 3rem var(--font-display); color: var(--line); }
+@media (max-width: 640px) { .about { grid-template-columns: 1fr; } .portrait { max-width: 190px; } }
+
+/* writing */
+.venue { display: flex; flex-direction: column; gap: 4px; }
+.venue h3 { font-size: 1.2rem; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.venue h3 small { font: 0.78rem var(--font-mono); color: var(--muted); font-weight: 400; }
+.list { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.list li { border-bottom: 1px solid var(--line); }
+.list a { display: grid; grid-template-columns: 2.4em minmax(0, 1fr) auto; gap: 12px; padding: 14px 4px; text-decoration: none; color: inherit; align-items: baseline; }
+.list a:hover .t { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.list .n { font: 0.8rem var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.list .t { font-weight: 600; display: block; overflow-wrap: anywhere; }
+.list .d { color: var(--muted); font-size: 0.95rem; display: block; margin-top: 2px; }
+.list .go { color: var(--accent); font-family: var(--font-mono); }
+
+/* photos */
+.photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.photo { position: relative; aspect-ratio: 1; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; max-width: 100%; }
+.photo .rm { position: absolute; top: 8px; right: 8px; }
+.photo.slot { display: grid; place-items: center; border-style: dashed; color: var(--muted); font: 0.8rem var(--font-mono); text-align: center; padding: 12px; }
+
+/* edit forms */
+.edit { background: var(--surface); border: 1px dashed var(--accent); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.edit label { font: 500 0.78rem var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+.edit input, .edit textarea, .edit select {
+  font: 1rem var(--font-body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; width: 100%;
+}
+.edit textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+.edit .bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.art { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.art .wide { grid-column: 1 / -1; }
+@media (max-width: 640px) { .art { grid-template-columns: 1fr; } }
+.status { font: 0.82rem var(--font-mono); color: var(--muted); min-height: 1.2em; }
+.status.bad { color: var(--signal); }
+[hidden] { display: none !important; }
+footer { color: var(--muted); font-size: 0.88rem; border-top: 1px solid var(--line); padding-top: 20px; }
+@media (prefers-reduced-motion: no-preference) { .btn, .list .t { transition: color .15s, background .15s; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 id="name">Niaz Mohammad Azad Shaik</h1>
+      <p class="tag" id="tagline"></p>
+    </div>
+    <div class="actions">
+      <a class="btn" id="linkedin" target="_blank" rel="noopener" hidden>LinkedIn profile</a>
+    </div>
+  </header>
+
+  <p class="status bad" id="status" role="status" hidden></p>
+
+  <section class="row" aria-labelledby="r-today">
+    <div class="rail" id="r-today">Today</div>
+    <div class="body">
+      <div class="today">
+        <p class="note" id="moodText"></p>
+        <p class="when" id="moodWhen"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="r-about">
+    <div class="rail" id="r-about">About</div>
+    <div class="body">
+      <div class="about">
+        <div class="text" id="aboutText"></div>
+        <div class="portrait" id="portrait"><span>NS</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="r-writing">
+    <div class="rail" id="r-writing">Writing</div>
+    <div class="body"><div id="writing" class="body" style="gap:32px"></div></div>
+  </section>
+
+  <section class="row" id="photoSection" aria-labelledby="r-photos" hidden>
+    <div class="rail" id="r-photos">Photos</div>
+    <div class="body"><div class="photos" id="photos"></div></div>
+  </section>
+
+  <footer id="footer">Niaz Mohammad Azad Shaik. Networking QA, GPU and AI infrastructure.</footer>
+</div>
+
+<script>
+// Everything shown on this page comes from content.json in the same folder.
+// To change the site, edit content.json. You do not need to touch this file.
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function webUrl(u) { return typeof u === "string" && /^https:\/\/[^\s]+$/i.test(u.trim()) ? u.trim() : ""; }
+  function photoPath(p) { return typeof p === "string" && /^[\w.\-\/ ]+\.(jpe?g|png|webp|gif)$/i.test(p) && p.indexOf("..") < 0 ? p : ""; }
+  function problem(msg) { var s = $("status"); s.textContent = msg; s.hidden = false; }
+
+  function render(c) {
+    if (c.name) { $("name").textContent = c.name; document.title = c.name; }
+    $("tagline").textContent = c.tagline || "";
+
+    var u = webUrl(c.linkedin), li = $("linkedin");
+    if (u) { li.href = u; li.hidden = false; }
+
+    var mood = c.today || {};
+    if (mood.text) {
+      $("moodText").textContent = mood.text;
+      $("moodWhen").textContent = mood.date ? "Written " + mood.date : "";
+    } else {
+      $("moodText").textContent = "Nothing posted yet.";
+      $("moodText").className = "note empty";
+    }
+
+    $("aboutText").textContent = Array.isArray(c.about) ? c.about.join("\n\n") : (c.about || "");
+
+    var photos = (Array.isArray(c.photos) ? c.photos : []).map(photoPath).filter(Boolean);
+    if (photos.length) {
+      var por = $("portrait"); por.textContent = "";
+      var pi = el("img"); pi.src = photos[0]; pi.alt = "Portrait"; por.appendChild(pi);
+    }
+    if (photos.length > 1) {
+      var ph = $("photos");
+      photos.slice(1).forEach(function (p, i) {
+        var f = el("div", "photo"), im = el("img");
+        im.src = p; im.alt = "Photo " + (i + 1); im.loading = "lazy";
+        f.appendChild(im); ph.appendChild(f);
+      });
+      $("photoSection").hidden = false;
+    }
+
+    var w = $("writing");
+    (Array.isArray(c.writing) ? c.writing : []).forEach(function (group) {
+      var items = Array.isArray(group.articles) ? group.articles : [];
+      var box = el("div", "venue"), h = el("h3", "", (group.where || "Articles") + " ");
+      h.appendChild(el("small", "", items.length + (items.length === 1 ? " article" : " articles")));
+      box.appendChild(h);
+      var ul = el("ul", "list");
+      items.forEach(function (a, i) {
+        var liEl = el("li"), link = el("a"), href = webUrl(a.link);
+        if (href) { link.href = href; link.target = "_blank"; link.rel = "noopener"; }
+        link.appendChild(el("span", "n", String(i + 1).padStart(2, "0")));
+        var mid = el("span");
+        mid.appendChild(el("span", "t", a.title || "Untitled"));
+        if (a.about) mid.appendChild(el("span", "d", a.about));
+        link.appendChild(mid);
+        link.appendChild(el("span", "go", href ? "\u2197" : ""));
+        liEl.appendChild(link); ul.appendChild(liEl);
+      });
+      box.appendChild(ul); w.appendChild(box);
+    });
+  }
+
+  fetch("content.json", { cache: "no-store" })
+    .then(function (r) {
+      if (!r.ok) throw new Error("content.json was not found next to index.html.");
+      return r.text();
+    })
+    .then(function (t) {
+      var c;
+      try { c = JSON.parse(t); }
+      catch (e) { throw new Error("content.json has a typing mistake, often a missing comma or quote mark. Details: " + e.message); }
+      render(c);
+    })
+    .catch(function (e) { problem("This page could not load its content. " + e.message); });
+})();
+</script>
+</body>
+</html>
