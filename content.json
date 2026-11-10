@@ -11,7 +11,7 @@
     "Lately I have been carrying the same tester's habits into GPU and AI infrastructure. I measure what a GPU is really doing under load, check whether a retrieval system finds the right passage, and look for results that seem fine and are still wrong.",
     "I write up what I find, including the parts that did not work."
   ],
-  "photos": [],
+  "photos": ["niaz.jpg"],
   "writing": [
     {
       "where": "StickyMinds",
