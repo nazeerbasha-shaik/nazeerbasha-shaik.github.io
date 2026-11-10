@@ -3,7 +3,8 @@
   "tagline": "QA and infrastructure engineer. I test networks, and I write about the failures that pass every check.",
   "linkedin": "https://www.linkedin.com/in/niaz-mohammad-azad-shaik/",
   "today": [
-     { "date": "November 9, 2026", "text": "Alhamdulillah, my website went live today." }
+     { "date": "November 9, 2026", "text": "Second note :) " },
+    { "date": "November 9, 2026", "text": "Alhamdulillah, my website went live today." }
    ],
   "about": [
     "I'm a QA and infrastructure engineer at A10 Networks. Before that I worked at F5 Networks and Brocade Communications. Most of my career has gone into testing networking gear: load balancers, routers and switches, with DNS, sFlow and packet capture as my home ground. I hold an MS in Electrical Engineering.",
